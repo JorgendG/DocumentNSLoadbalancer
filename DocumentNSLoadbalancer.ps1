@@ -1,4 +1,6 @@
-﻿#Import-Module "$PSScriptRoot\adm.psm1"
+﻿#Requires -modules CredentialManager
+#Import-Module "$PSScriptRoot\adm.psm1"
+
 #https://github.com/kbcitrite/scripts/tree/master/Citrix/ADM
 
 
@@ -39,7 +41,7 @@ $ADMSession = Connect-ADM -ADMHost https://adm01.homelabdc22.local -Cred $cred #
 
 $ns_lbvservers = (Invoke-ADMNitro -ADMSession $ADMSession -OperationMethod GET -ResourceType 'ns_lbvserver').ns_lbvserver
 "======"
-$ns_lbvservers = $ns_lbvservers | where{ $_.name -like '*mediawiki*' }
+$ns_lbvservers = $ns_lbvservers | where { $_.name -like '*mediawiki*' }
 #$ns_lbvservers = $ns_lbvservers | Where-Object { $_.name -like '*web*' }
 $ns_lbvservers | Select-Object name, vsvr_type, state, ns_ip_address
 #$ns_lbvservers
